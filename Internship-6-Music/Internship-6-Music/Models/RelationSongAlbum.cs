@@ -4,9 +4,11 @@ using System.Text;
 
 namespace Internship_6_Music.Models
 {
-    class Relation_Song_Album
+    public class RelationSongAlbum
     {
         public int AlbumId { get; set; }
+        public Album Album { get; set; }
         public int SongId { get; set; }
+        public Song Song { get; set; }
     }
 }
