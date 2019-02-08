@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Runtime.InteropServices;
 using Dapper;
 using Internship_6_Music.Models;
 
@@ -42,7 +41,6 @@ namespace Internship_6_Music
 
                 foreach (var relation in relationList)
                 {
-
                     foreach (var album in albumList.Where(album => album.AlbumId == relation.AlbumId))
                     {
                         relation.Album = album;
@@ -66,7 +64,6 @@ namespace Internship_6_Music
                 {
                     Console.WriteLine($"{musician.Name} {musician.Nationality}");
                 }
-
                 Console.WriteLine();
 
                 //3 albums grouped by year, with artists
@@ -80,7 +77,6 @@ namespace Internship_6_Music
                         Console.WriteLine($"  {album.Name} - {album.Musician.Name}");
                     }
                 }
-
                 Console.WriteLine();
 
                 //4 - albums by inputted part of name
@@ -105,7 +101,6 @@ namespace Internship_6_Music
                     }
                     Console.WriteLine($"{album.Name} {duration}");
                 }
-                
                 Console.WriteLine();
 
                 //6 - albums by song
@@ -115,7 +110,6 @@ namespace Internship_6_Music
 
                 if (songForSearch != null && songInput != "")
                 {
-
                     foreach (var album in albumList)
                     foreach (var relation in album.SongOnAlbums.Where(relation => relation.Song.Name == songForSearch.Name))
                         Console.WriteLine($"{relation.Album.Name}");
@@ -123,28 +117,25 @@ namespace Internship_6_Music
                 }
                 else
                     Console.WriteLine($"No song found");
-                    
-                
                 Console.WriteLine();
 
                 //7 - songs by a selected artist, on albums after a selected year
                 Console.WriteLine("Enter artist name");
                 var musicianInput = Console.ReadLine();
                 var musicianForSearch = musiciansList.FirstOrDefault(musician => musician.Name == musicianInput);
+
                 Console.WriteLine("Enter year:");
                 var yearInput = Console.ReadLine();
 
-                if (musicianForSearch != null && int.TryParse(yearInput, out var n))
+                if (musicianForSearch != null && int.TryParse(yearInput, out var yearResult))
                 {
                     Console.WriteLine($"{musicianForSearch.Name} songs after {yearInput}:");
-                    foreach (var album in musicianForSearch.Albums.Where(album => album.YearOfRelease > int.Parse(yearInput)))
-                    foreach (var relation in album.SongOnAlbums)
-                        Console.WriteLine($"{relation.Song.Name}");
+                    foreach (var album in musicianForSearch.Albums.Where(album => album.YearOfRelease > yearResult))
+                        foreach (var relation in album.SongOnAlbums)
+                            Console.WriteLine($"{relation.Song.Name}");
                 }   
                 else
                     Console.WriteLine("Invalid input");
-                    
-                
                 Console.WriteLine();
             }
         }
