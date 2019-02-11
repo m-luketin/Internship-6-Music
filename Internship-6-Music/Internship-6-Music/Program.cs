@@ -106,14 +106,13 @@ namespace Internship_6_Music
                 //6 - albums by song
                 Console.WriteLine("Enter song name:");
                 var songInput = Console.ReadLine();
-                var songForSearch = songsList.FirstOrDefault(song => song.Name.Contains(songInput));
+                var songForSearch = songsList.FirstOrDefault(song => song.Name == songInput);
 
-                if (songForSearch != null && songInput != "")
+                if (songForSearch != null)
                 {
                     foreach (var album in albumList)
-                    foreach (var relation in album.SongOnAlbums.Where(relation => relation.Song.Name == songForSearch.Name))
-                        Console.WriteLine($"{relation.Album.Name}");
-
+                        foreach (var relation in album.SongOnAlbums.Where(relation => relation.Song.Name == songForSearch.Name))
+                            Console.WriteLine($"{relation.Album.Name}");
                 }
                 else
                     Console.WriteLine($"No song found");
